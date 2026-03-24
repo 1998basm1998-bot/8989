@@ -270,8 +270,8 @@ body {
 }
 
 .logo-placeholder {
-    width: 90px;
-    height: 90px;
+    width: 108px;
+    height: 108px;
     margin: 0 auto 10px auto;
     display: flex;
     align-items: center;
@@ -440,13 +440,13 @@ span.auto-expand:empty::before {
     background: #fff;
     border: none;
     border-radius: 10px;
-    min-width: 92px;
-    min-height: 92px;
+    min-width: 110px;
+    min-height: 110px;
 }
 
 #chassis-qrcode {
-    width: 70px;
-    height: 70px;
+    width: 84px;
+    height: 84px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -461,7 +461,7 @@ span.auto-expand:empty::before {
     margin-top: 4px;
     font-size: 10px;
     letter-spacing: 1px;
-    max-width: 88px;
+    max-width: 105px;
     overflow: hidden;
     white-space: nowrap;
 }
@@ -470,7 +470,7 @@ span.auto-expand:empty::before {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-top: 20px;
+    margin-top: 60px;
     align-items: end;
 }
 
