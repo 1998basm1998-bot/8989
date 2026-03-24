@@ -2,6 +2,7 @@ let merchants = JSON.parse(localStorage.getItem('carContractsMerchants')) || [];
 let currentMerchantId = null;
 let currentTransactionId = null;
 let qrcodeInstance = null;
+let editingMerchantId = null;
 
 if (localStorage.getItem('theme') === 'dark') {
     document.body.classList.add('dark-mode');
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupAutoExpand();
     setupQrGenerator();
     syncSignatureNames();
+    renderMerchants();
 });
 
 function setupEditableFields() {
@@ -74,34 +76,6 @@ function syncSignatureNames() {
     }
 }
 
-function checkPassword() {
-    const password = document.getElementById('login-password').value;
-    if (password === '1001') {
-        document.getElementById('login-overlay').classList.remove('active-view');
-        showPrayerMsg();
-    } else {
-        alert('الرمز غير صحيح، يرجى المحاولة مرة أخرى.');
-        document.getElementById('login-password').value = '';
-    }
-}
-
-function showPrayerMsg() {
-    const msg = document.getElementById('prayer-msg');
-    msg.style.display = 'block';
-
-    setTimeout(() => {
-        msg.style.display = 'none';
-        renderMerchants();
-        showView('main-view');
-    }, 3000);
-}
-
-document.getElementById('login-password').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        checkPassword();
-    }
-});
-
 function toggleDarkMode() {
     const isDark = document.body.classList.toggle('dark-mode');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
@@ -115,7 +89,7 @@ function showView(viewId) {
     document.getElementById(viewId).classList.add('active-view');
 }
 
-function addMerchant() {
+function addOrUpdateMerchant() {
     const name = document.getElementById('merchant-name').value;
     const phone = document.getElementById('merchant-phone').value;
     const date = document.getElementById('merchant-date').value;
@@ -126,16 +100,29 @@ function addMerchant() {
         return;
     }
 
-    const newMerchant = {
-        id: Date.now(),
-        name,
-        phone,
-        date,
-        notes,
-        transactions: []
-    };
+    if (editingMerchantId) {
+        const merchant = merchants.find(m => m.id === editingMerchantId);
+        if (merchant) {
+            merchant.name = name;
+            merchant.phone = phone;
+            merchant.date = date;
+            merchant.notes = notes;
+        }
+        editingMerchantId = null;
+        document.getElementById('save-merchant-btn').innerText = 'حفظ التاجر';
+        document.getElementById('cancel-edit-btn').style.display = 'none';
+    } else {
+        const newMerchant = {
+            id: Date.now(),
+            name,
+            phone,
+            date,
+            notes,
+            transactions: []
+        };
+        merchants.push(newMerchant);
+    }
 
-    merchants.push(newMerchant);
     saveData();
     renderMerchants();
 
@@ -143,6 +130,39 @@ function addMerchant() {
     document.getElementById('merchant-phone').value = '';
     document.getElementById('merchant-date').value = '';
     document.getElementById('merchant-notes').value = '';
+}
+
+function editMerchant(id) {
+    const merchant = merchants.find(m => m.id === id);
+    if (!merchant) return;
+
+    document.getElementById('merchant-name').value = merchant.name;
+    document.getElementById('merchant-phone').value = merchant.phone;
+    document.getElementById('merchant-date').value = merchant.date;
+    document.getElementById('merchant-notes').value = merchant.notes;
+
+    editingMerchantId = id;
+    document.getElementById('save-merchant-btn').innerText = 'تحديث التاجر';
+    document.getElementById('cancel-edit-btn').style.display = 'inline-block';
+}
+
+function cancelEditMerchant() {
+    editingMerchantId = null;
+    document.getElementById('save-merchant-btn').innerText = 'حفظ التاجر';
+    document.getElementById('cancel-edit-btn').style.display = 'none';
+    
+    document.getElementById('merchant-name').value = '';
+    document.getElementById('merchant-phone').value = '';
+    document.getElementById('merchant-date').value = '';
+    document.getElementById('merchant-notes').value = '';
+}
+
+function deleteMerchant(id) {
+    if (confirm('هل أنت متأكد من حذف هذا التاجر مع جميع معاملاته بشكل نهائي؟')) {
+        merchants = merchants.filter(m => m.id !== id);
+        saveData();
+        renderMerchants();
+    }
 }
 
 function renderMerchants() {
@@ -157,7 +177,11 @@ function renderMerchants() {
                 <h3 style="margin: 0;">${m.name}</h3>
                 <small>الرقم: ${m.phone} | التاريخ: ${m.date}</small>
             </div>
-            <button class="btn btn-primary" onclick="openMerchantDetails(${m.id})">عرض المعاملات</button>
+            <div>
+                <button class="btn btn-secondary" onclick="editMerchant(${m.id})">✏️ تعديل</button>
+                <button class="btn btn-danger" onclick="deleteMerchant(${m.id})">🗑️ حذف</button>
+                <button class="btn btn-primary" onclick="openMerchantDetails(${m.id})">عرض المعاملات</button>
+            </div>
         `;
         list.appendChild(div);
     });
