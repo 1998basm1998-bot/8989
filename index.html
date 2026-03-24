@@ -247,15 +247,15 @@
                 <div class="form-row" style="margin-top: 15px;">
                     <div class="input-group w-100">
                         <label>٦- البائع الحائز (</label>
-                        <span contenteditable="true" class="auto-expand"></span>
+                        <span contenteditable="true" class="auto-expand" style="flex: 2.5;"></span>
                         <label>) المحافظة (</label>
                         <span contenteditable="true" class="auto-expand"></span>
                         <label>) محلة (</label>
-                        <span contenteditable="true" class="auto-expand"></span>
+                        <span contenteditable="true" class="auto-expand" style="flex: 0.8;"></span>
                         <label>) زقاق (</label>
-                        <span contenteditable="true" class="auto-expand"></span>
+                        <span contenteditable="true" class="auto-expand" style="flex: 0.8;"></span>
                         <label>) دار (</label>
-                        <span contenteditable="true" class="auto-expand"></span>
+                        <span contenteditable="true" class="auto-expand" style="flex: 0.8;"></span>
                         <label>)</label>
                     </div>
                 </div>
@@ -284,37 +284,39 @@
                     </div>
                 </div>
 
-                <div class="footer-info-row">
-                    <div class="term-item footer-term">٨- لايجوز الحك والشطب في العقد</div>
-                    <div class="date-line">
+                <div class="footer-info-row" style="position: relative; justify-content: center;">
+                    <div class="term-item footer-term" style="position: absolute; right: 0;">٨- لايجوز الحك والشطب في العقد</div>
+                    <div class="date-line" style="margin: 0 auto;">
                         <label>حرر بتاريخ</label>
                         <span contenteditable="true" class="auto-expand date-field" id="contract-day"></span>
                         <span class="date-separator">/</span>
                         <span contenteditable="true" class="auto-expand date-field" id="contract-month"></span>
                         <span class="date-separator">/</span>
                         <span contenteditable="true" class="auto-expand date-field year-field" id="contract-year"></span>
+                        <label style="margin-right: 15px;">الساعة</label>
+                        <span contenteditable="true" class="auto-expand date-field" id="contract-time"></span>
                     </div>
                 </div>
             </div>
 
             <div class="signatures">
+                <div class="signature-box barcode-signature-box">
+                    <div id="chassis-qrcode-container" class="qr-container" style="display: none;">
+                        <div id="chassis-qrcode"></div>
+                        <div id="qr-chassis-text"></div>
+                    </div>
+                </div>
                 <div class="signature-box">
-                    <div>البائع</div>
-                    <span contenteditable="true" class="auto-expand signature-line-input" id="seller-signature-name"></span>
+                    <div>منظم العقد</div>
+                    <span contenteditable="true" class="auto-expand signature-line-input"></span>
                 </div>
                 <div class="signature-box">
                     <div>المشتري</div>
                     <span contenteditable="true" class="auto-expand signature-line-input" id="buyer-signature-name"></span>
                 </div>
                 <div class="signature-box">
-                    <div>منظم العقد</div>
-                    <span contenteditable="true" class="auto-expand signature-line-input"></span>
-                </div>
-                <div class="signature-box barcode-signature-box">
-                    <div id="chassis-qrcode-container" class="qr-container" style="display: none;">
-                        <div id="chassis-qrcode"></div>
-                        <div id="qr-chassis-text"></div>
-                    </div>
+                    <div>البائع</div>
+                    <span contenteditable="true" class="auto-expand signature-line-input" id="seller-signature-name"></span>
                 </div>
             </div>
 
