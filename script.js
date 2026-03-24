@@ -182,10 +182,13 @@ function searchAllTransactions() {
             const transactionPayload = normalizeTransactionData(t.data || {});
             const carNumber = transactionPayload.field_2 || '';
             const buyerName = transactionPayload.field_13 || '';
+            const chassisNumber = transactionPayload.field_26 || '';
+            
             const carNumberMatch = carNumber.includes(text);
             const buyerMatch = buyerName.includes(text);
+            const chassisMatch = chassisNumber.includes(text);
 
-            if (nameMatch || carNumberMatch || buyerMatch) {
+            if (nameMatch || carNumberMatch || buyerMatch || chassisMatch) {
                 advancedResults.push({
                     merchantId: m.id,
                     merchantName: m.name,
