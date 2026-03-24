@@ -180,8 +180,8 @@ function searchAllTransactions() {
 
         m.transactions.forEach(t => {
             const transactionPayload = normalizeTransactionData(t.data || {});
-            const carNumber = transactionPayload.field_4 || '';
-            const buyerName = transactionPayload.field_15 || '';
+            const carNumber = transactionPayload.field_2 || '';
+            const buyerName = transactionPayload.field_13 || '';
             const carNumberMatch = carNumber.includes(text);
             const buyerMatch = buyerName.includes(text);
 
@@ -256,7 +256,7 @@ function renderTransactions(merchant) {
         div.innerHTML = `
             <div>
                 <strong>معاملة رقم #${index + 1}</strong> <br>
-                <small>التاريخ: ${t.date} | المركبة: ${transactionPayload.field_4 || ''}</small>
+                <small>التاريخ: ${t.date} | المركبة: ${transactionPayload.field_2 || ''}</small>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="editTransaction(${t.id})">✏️ فتح وتعديل</button>
@@ -416,8 +416,8 @@ function generateQr() {
     if (!qrcodeInstance) {
         qrcodeInstance = new QRCode(qrDiv, {
             text: value,
-            width: 70,
-            height: 70,
+            width: 84,
+            height: 84,
             colorDark: '#000000',
             colorLight: '#ffffff',
             correctLevel: QRCode.CorrectLevel.H
