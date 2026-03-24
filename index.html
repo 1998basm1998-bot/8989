@@ -12,20 +12,7 @@
 </head>
 <body>
 
-    <div id="login-overlay" class="login-overlay active-view">
-        <div class="login-card fade-in">
-            <h2 style="margin-top: 0;">الرجاء إدخال الرمز</h2>
-            <input type="password" id="login-password" class="login-input" placeholder="••••">
-            <br>
-            <button onclick="checkPassword()" class="btn btn-primary" style="margin-top: 15px;">تسجيل الدخول</button>
-        </div>
-    </div>
-
-    <div id="prayer-msg" class="prayer-msg">
-        استغفر الله العظيم واتوب اليه
-    </div>
-
-    <div id="main-view" class="app-view">
+    <div id="main-view" class="app-view active-view">
         <div class="top-bar">
             <button onclick="toggleDarkMode()" class="btn-theme-toggle" id="theme-btn">🌙</button>
         </div>
@@ -42,7 +29,8 @@
                 </div>
                 <div class="form-row">
                     <input type="text" id="merchant-notes" placeholder="ملاحظات" style="flex-grow: 1;">
-                    <button onclick="addMerchant()" class="btn btn-primary">حفظ التاجر</button>
+                    <button id="save-merchant-btn" onclick="addOrUpdateMerchant()" class="btn btn-primary">حفظ التاجر</button>
+                    <button id="cancel-edit-btn" onclick="cancelEditMerchant()" class="btn btn-secondary" style="display: none; margin-right: 5px;">إلغاء التعديل</button>
                 </div>
             </div>
 
